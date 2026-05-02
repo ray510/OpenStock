@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
             },
             {
                 protocol: 'https',
-                hostname: 'static2.finnhub.io',
+                hostname: 's.yimg.com',
                 port: '',
                 pathname: '/**',
             },

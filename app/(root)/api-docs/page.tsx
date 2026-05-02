@@ -178,9 +178,9 @@ export default function ApiDocsPage() {
 
         <div className="grid gap-4">
           <StackItem
-            title="Finnhub"
-            desc="Real-time quotes, technical indicators, and market news."
-            url="https://finnhub.io"
+            title="Yahoo Finance (yahoo-finance2)"
+            desc="Free real-time quotes, company profiles, and market news. Supports global exchanges including HKEX, TSE, LSE, and more — no API key required."
+            url="https://github.com/gadicc/node-yahoo-finance2"
           />
           <StackItem
             title="ConvertKit (Kit)"
