@@ -11,6 +11,18 @@ yahooFinance.suppressNotices(['yahooSurvey']);
 // Shared validate option: prevents hard throws on minor schema differences
 const YF_OPTS = { validateResult: false } as const;
 
+// Shape of a quote object as returned by the Yahoo Finance search endpoint.
+// yahoo-finance2's SearchResult quotes are a discriminated union; using a
+// narrow interface keeps the code readable without casting through `any`.
+interface YahooSearchQuote {
+    symbol: string;
+    shortname?: string;
+    longname?: string;
+    exchDisp?: string;
+    typeDisp?: string;
+    quoteType?: string;
+}
+
 // Converts a Yahoo Finance news UUID string into a numeric id for RawNewsArticle
 function uuidToNumericId(uuid: string): number {
     let hash = 0;
@@ -68,7 +80,7 @@ export async function getCompanyProfile(symbol: string) {
             currency: q.currency,
             exchange: q.fullExchangeName,
             logo: undefined as string | undefined,
-            // Yahoo returns actual USD; divide by 1 000 000 to keep the same
+            // Yahoo returns actual USD; divide by 1_000_000 to keep the same
             // "millions" unit that formatNumber() in utils.ts expects
             marketCapitalization: q.marketCap != null ? q.marketCap / 1_000_000 : undefined,
             name: q.longName || q.shortName,
@@ -210,10 +222,10 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
             YF_OPTS,
         );
 
-        return (result.quotes as any[])
-            .filter((r: any) => Boolean(r.symbol))
-            .map((r: any) => ({
-                symbol: (r.symbol as string).toUpperCase(),
+        return (result.quotes as YahooSearchQuote[])
+            .filter((r) => Boolean(r.symbol))
+            .map((r) => ({
+                symbol: r.symbol.toUpperCase(),
                 name: r.longname || r.shortname || r.symbol,
                 exchange: r.exchDisp || '',
                 type: r.typeDisp || r.quoteType || 'Stock',
