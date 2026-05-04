@@ -75,12 +75,12 @@ Our background jobs are defined in `lib/inngest/functions.ts`.
 ## 🔌 API Integrations
 
 <details>
-<summary><b>📈 Stock Data: Finnhub</b></summary>
+<summary><b>📈 Stock Data: Yahoo Finance</b></summary>
 <br/>
 
-*   **Base URL:** `https://finnhub.io/api/v1`
-*   **Key Features:** Real-time quotes, technical indicators, market news.
-*   **Auth:** `NEXT_PUBLIC_FINNHUB_API_KEY`
+*   **Provider:** [yahoo-finance2](https://github.com/gadicc/node-yahoo-finance2) (unofficial Yahoo Finance API — no API key required)
+*   **Key Features:** Real-time quotes, company profiles, market news, and global exchange support (US, HKEX, TSE, LSE, and more).
+*   **Auth:** None required
 
 </details>
 
